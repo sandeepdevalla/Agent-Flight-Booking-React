@@ -1,0 +1,37 @@
+{
+    "places" : [
+        {
+            "name": "Banglore"
+        },
+        {
+            "name": "Chennai"
+        },
+        {
+            "name": "Delhi"
+        },
+        {
+            "name": "Hyderabad"
+        },
+        {
+            "name": "Pune"
+        }
+    ],
+    "flightData" : [
+        {
+            "flightNo": "fl425",
+            "AirName": "Sarkar",
+            "startTime": "12:30 PM",
+            "endTime": "4:00 PM",
+            "duration": "3:30 Hrs",
+            "stops": 4     
+        },
+        {
+            "flightNo": "fl428",
+            "AirName": "Booster",
+            "startTime": "2:00 PM",
+            "endTime": "4:30 AM",
+            "duration": "2:30 Hrs",
+            "stops": 3    
+        }
+    ]
+}
