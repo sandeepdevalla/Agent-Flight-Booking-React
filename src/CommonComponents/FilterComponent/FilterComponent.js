@@ -12,6 +12,7 @@ class  Filter extends React.Component {
         this.state = {
             places: [],
             validated: false,
+            searchItem: '',
             filterData: {
                 sourceCity: '',
                 destinationCity: '',
@@ -43,6 +44,10 @@ class  Filter extends React.Component {
             filterData : filterData
         })
     }
+    getSearchValue = (event) => {
+        // should apply debounce to avoid continious filtering.
+        this.props.getSearchData(event.target.value);
+    }
     handleSubmit = (event) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -66,43 +71,48 @@ class  Filter extends React.Component {
                         <b>* Currently flights are running in the following cites only {this.state.places.map(place => place.name).join(', ')}</b>
                     </Col>
                 </Row>
-
+            
                 <Form noValidate validated={this.validated} onSubmit={this.handleSubmit}>
-                <Form.Row>
-                    <Col>
-                        <Form.Group as={Col} controlId="sourceCity">
-                            <Form.Label className="custome-field-label">Source City</Form.Label>
-                            <Form.Control type = "text" list ="source" key = "sourceCity" placeholder="Source City" required value={this.state.filterData.sourceCity} onChange={this.changeFilterValue}/>
-                            {this.getPlaces("source")}
-                        </Form.Group>
-                    </Col>
-                    <Col>
-                        <Form.Group as={Col} controlId="destinationCity" >
-                            <Form.Label className="custome-field-label">Destination City</Form.Label>
-                            <Form.Control type = "text" list ="destination" key="destinationCity" placeholder="Destination City" required value={this.state.filterData.destinationCity} onChange={this.changeFilterValue}/>
-                            {this.getPlaces("destination")}
-                        </Form.Group>
-                    </Col>
-                    <Col>
-                        <Form.Group as={Col} controlId="TravelDate" >
-                            <Form.Label className="custome-field-label">Travel Date</Form.Label>
-                            <Form.Control type="date" placeholder="Travel Date" required value={this.state.filterData.TravelDate} onChange={this.changeFilterValue}/>
-                        </Form.Group>
-                    </Col>
-                    
-                    <Col>
-                        <Form.Group as={Col} controlId="ReturnDate" >
-                                <Form.Label className="custome-field-label">Return Date</Form.Label>
-                                <Form.Control type="date" placeholder="Return Date" defaultValue = {this.state.filterData.ReturnDate} required value={this.state.ReturnDate} onChange={this.changeFilterValue}/>
-                        </Form.Group>
-                    </Col>
-                    <Col>
-                        <Button variant="primary" type="submit">
-                            Search
-                        </Button>
-                    </Col>
-                </Form.Row>
+                    <Form.Row>
+                        <Col>
+                            <Form.Group as={Col} controlId="sourceCity">
+                                <Form.Label className="custome-field-label">Source City</Form.Label>
+                                <Form.Control type = "text" list ="source" key = "sourceCity" placeholder="Source City" required value={this.state.filterData.sourceCity} onChange={this.changeFilterValue}/>
+                                {this.getPlaces("source")}
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group as={Col} controlId="destinationCity" >
+                                <Form.Label className="custome-field-label">Destination City</Form.Label>
+                                <Form.Control type = "text" list ="destination" key="destinationCity" placeholder="Destination City" required value={this.state.filterData.destinationCity} onChange={this.changeFilterValue}/>
+                                {this.getPlaces("destination")}
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group as={Col} controlId="TravelDate" >
+                                <Form.Label className="custome-field-label">Travel Date</Form.Label>
+                                <Form.Control type="date" placeholder="Travel Date" required value={this.state.filterData.TravelDate} onChange={this.changeFilterValue}/>
+                            </Form.Group>
+                        </Col>
+                        
+                        <Col>
+                            <Form.Group as={Col} controlId="ReturnDate" >
+                                    <Form.Label className="custome-field-label">Return Date</Form.Label>
+                                    <Form.Control type="date" placeholder="Return Date" defaultValue = {this.state.filterData.ReturnDate} required value={this.state.ReturnDate} onChange={this.changeFilterValue}/>
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Button variant="primary" type="submit">
+                                Search
+                            </Button>
+                        </Col>
+                    </Form.Row>
                 </Form>
+                <Row>
+                    <Col>
+                        <input type="search" placeholder="Search for the flights by name" onChange={this.getSearchValue}></input>
+                    </Col>
+                </Row>
             </Container>
             );
     }

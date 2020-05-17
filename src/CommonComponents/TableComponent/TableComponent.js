@@ -9,7 +9,7 @@ class  TableComponent extends React.Component {
         }
     }
     componentWillReceiveProps = (props) => {
-        if(props.flightData && props.flightData.length) {
+        if(props.flightData) {
             this.setState({
                 flightData: props.flightData
             })
@@ -46,7 +46,7 @@ class  TableComponent extends React.Component {
                 </>
                 );
         } else {
-            return <div>Please fill the above required details for available flights </div>
+            return <div>Please fill the above required details for available flights or flights not found for the searched name </div>
         }
     }
 }
