@@ -10,6 +10,12 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 20px;
+  display: block;
+}
+.App-header div {
+    color: #673ab7;
+    font-size: 15px;
 }
 .App-footer {
   background-color: skyblue;
