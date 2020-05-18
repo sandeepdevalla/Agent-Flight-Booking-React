@@ -4,3 +4,15 @@
 .filter_container,.filter_container .scroll_head {
     margin: 20px;
 }
+.search-input {
+    width: 93%;
+    float: left;
+    margin: 10px;
+    border: 5px solid skyblue;
+    border-radius: 30px;
+    line-height: 30px;
+    padding: 10px;
+}
+.search-input:focus {
+    outline: none;
+}

@@ -6,7 +6,6 @@ import {Form, Button}  from 'react-bootstrap';
 import './FilterComponent.css';
 
 class  Filter extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -44,10 +43,27 @@ class  Filter extends React.Component {
             filterData : filterData
         })
     }
-    getSearchValue = (event) => {
-        // should apply debounce to avoid continious filtering.
-        this.props.getSearchData(event.target.value);
+    waitForUserTopStopTyping = function(searchFunction, timer)  {
+        let timerId;
+        return function(...searchArgs) {
+            // searchArgs is the will be rest parameter and which will wont be exist in async events so we use below value var to store
+            // above concept is called synthetic event in react
+            const context = this;
+            const value = searchArgs[0].target.value;
+            clearTimeout(timerId);
+            // trying with normal function for pollyfilling this context to the received function using apply
+            timerId = setTimeout(function() {
+                searchFunction.call(context, value)
+                // searchFunction.appply(context, [value])
+            }, timer);
+        }
+        
     }
+
+    getSearchValue = (value) => {
+        this.props.getSearchData(value);
+    }
+    debounceSearchValue = this.waitForUserTopStopTyping(this.getSearchValue, 500);
     handleSubmit = (event) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -110,7 +126,7 @@ class  Filter extends React.Component {
                 </Form>
                 <Row>
                     <Col>
-                        <input type="search" placeholder="Search for the flights by name" onChange={this.getSearchValue}></input>
+                        <input type="search" className="search-input" placeholder="Search for the flights by name" onChange={this.debounceSearchValue}></input>
                     </Col>
                 </Row>
             </Container>
